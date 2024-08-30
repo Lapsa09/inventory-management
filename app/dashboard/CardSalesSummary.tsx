@@ -1,7 +1,7 @@
 "use client";
 
 import { TrendingUp } from "lucide-react";
-import React, { useState } from "react";
+import React from "react";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import {
   ChartConfig,
@@ -29,8 +29,6 @@ type Props = {
 };
 
 function CardSalesSummary({ salesData }: Props) {
-  const [timeframe, setTimeframe] = useState("weekly");
-
   const totalValueSum =
     salesData.reduce((acc, curr) => acc + +curr.totalValue, 0) || 0;
 
