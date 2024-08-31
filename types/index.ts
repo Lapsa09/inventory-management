@@ -35,3 +35,9 @@ export type DrizzleWhere<T> =
   | SQL<unknown>
   | ((aliases: T) => SQL<T> | undefined)
   | undefined;
+
+export type UserSetting = {
+  label: string;
+  value: string | boolean;
+  type: "text" | "toggle";
+};

@@ -6,12 +6,10 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTrigger,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { createProduct } from "@/services/productActions";
 import { Button } from "@/components/ui/button";
-import { PlusCircleIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,6 +23,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string(),
@@ -35,15 +34,9 @@ const formSchema = z.object({
 });
 
 const CreateProductModal = () => {
-  const [open, setOpen] = React.useState(false);
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      price: 0,
-      stockQuantity: 0,
-      rating: 0,
-    },
   });
 
   const handleSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (
@@ -51,17 +44,11 @@ const CreateProductModal = () => {
   ) => {
     await createProduct(data);
     form.reset();
-    setOpen(false);
+    router.back();
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button className="flex items-center bg-blue-500 hover:bg-blue-700 text-gray-200 font-bold py-2 px-4 rounded">
-          <PlusCircleIcon className="w-5 h-5 mr-2 !text-gray-200" /> Create
-          Product
-        </Button>
-      </DialogTrigger>
+    <Dialog open onOpenChange={router.back}>
       <DialogContent className="text-gray-700">
         <DialogHeader>
           <DialogTitle>

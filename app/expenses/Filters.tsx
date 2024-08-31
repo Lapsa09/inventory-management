@@ -1,52 +1,47 @@
 "use client";
 
+import { DatePicker } from "@/components/DatePicker";
 import CustomSelect from "@/components/Select";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { format } from "date-fns";
 import { useSearchParams, useRouter } from "next/navigation";
-import React, { ChangeEventHandler } from "react";
+import React from "react";
 
 const CATEGORIES = [
   {
-    value: "office",
+    value: "Office",
     label: "Office",
   },
   {
-    value: "professional",
+    value: "Professional",
     label: "Professional",
   },
   {
-    value: "salaries",
+    value: "Salaries",
     label: "Salaries",
   },
   {
-    value: "all",
+    value: "All",
     label: "All",
     defaultChecked: true,
   },
 ];
 
-const classNames = {
-  label: "block text-sm font-medium text-gray-700",
-  selectInput:
-    "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md",
-};
-
 function Filters() {
   const router = useRouter();
   const queryParams = useSearchParams();
 
-  const onColumnFiltersChange: ChangeEventHandler<
-    HTMLInputElement | HTMLSelectElement
-  > = (e) => {
+  const onColumnSelectFiltersChange = (name: string, value: string) => {
     const newSearchParams = new URLSearchParams(queryParams);
-    newSearchParams.set(e.target.name, e.target.value);
+    newSearchParams.set(name, value);
     router.replace(`?${newSearchParams.toString()}`);
   };
 
-  const onColumnSelectFiltersChange = (value: string, name: string) => {
+  const onColumnDateFiltersChange = (name: string, date?: Date) => {
     const newSearchParams = new URLSearchParams(queryParams);
-    newSearchParams.set(name, value);
+    if (date) newSearchParams.set(name, format(date, "yyyy-MM-dd"));
+    else newSearchParams.delete(name);
+    console.log(date);
     router.replace(`?${newSearchParams.toString()}`);
   };
 
@@ -58,42 +53,34 @@ function Filters() {
       <div className="space-y-4">
         {/* CATEGORY */}
         <div>
-          <Label htmlFor="category" className={classNames.label}>
-            Category
-          </Label>
+          <Label htmlFor="category">Category</Label>
           <CustomSelect
             name="category"
             options={CATEGORIES}
-            defaultValue={"all"}
+            defaultValue={"All"}
             onValueChange={(value) =>
-              onColumnSelectFiltersChange(value, "category")
+              onColumnSelectFiltersChange("category", value)
             }
           />
         </div>
         {/* START DATE */}
         <div>
-          <Label htmlFor="startDate" className={classNames.label}>
-            Start Date
-          </Label>
-          <Input
-            type="date"
+          <Label htmlFor="startDate">Start Date</Label>
+          <DatePicker
             id="startDate"
             name="startDate"
-            className={classNames.selectInput}
-            onChange={onColumnFiltersChange}
+            date={queryParams.get("startDate")}
+            setDate={(date) => onColumnDateFiltersChange("startDate", date)}
           />
         </div>
         {/* END DATE */}
         <div>
-          <Label htmlFor="endDate" className={classNames.label}>
-            End Date
-          </Label>
-          <Input
-            type="date"
+          <Label htmlFor="endDate">End Date</Label>
+          <DatePicker
             id="endDate"
             name="endDate"
-            className={classNames.selectInput}
-            onChange={onColumnFiltersChange}
+            date={queryParams.get("endDate")}
+            setDate={(date) => onColumnDateFiltersChange("endDate", date)}
           />
         </div>
       </div>

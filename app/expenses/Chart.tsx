@@ -11,10 +11,15 @@ import {
 } from "@/components/ui/chart";
 import { Pie, PieChart } from "recharts";
 import { ExpensesByCategory } from "@/types/expenses";
+const colors = {
+  Office: "#00C49F",
+  Salaries: "#0088FE",
+  Professional: "#FFBB28",
+};
 
 type AggregatedDataItem = {
   name: string;
-  color?: string;
+  fill?: string;
   amount: number;
 };
 
@@ -27,13 +32,13 @@ type Props = {
 
 function Chart({ data }: Props) {
   const aggregatedData: AggregatedDataItem[] = Object.values(
-    data.reduce((acc: AggregatedData, data) => {
+    data.reduce((acc: AggregatedData, data, i) => {
       const amount = data.amount;
 
       acc[data.category] ??= {
         name: data.category,
         amount: 0,
-        color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
+        fill: colors[data.category as keyof typeof colors],
       };
 
       acc[data.category].amount += amount;
@@ -44,32 +49,30 @@ function Chart({ data }: Props) {
   const chartConfig = {
     Office: {
       label: "Office",
-      color: aggregatedData.find((item) => item.name === "Office")?.color!,
+      color: colors.Office,
     },
     Professional: {
       label: "Professional",
-      color: aggregatedData.find((item) => item.name === "Professional")
-        ?.color!,
+      color: colors.Professional,
     },
     Salaries: {
       label: "Salaries",
-      color: aggregatedData.find((item) => item.name === "Salaries")?.color!,
-    },
-    All: {
-      label: "All",
-      color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
+      color: colors.Salaries,
     },
   } satisfies ChartConfig;
 
   return (
-    <ChartContainer config={chartConfig} className="w-full aspect-square">
+    <ChartContainer
+      config={chartConfig}
+      className="w-full max-h-96 aspect-square"
+    >
       <PieChart>
         <ChartTooltip
           cursor={false}
-          content={<ChartTooltipContent hideLabel className="w-52" />}
+          content={<ChartTooltipContent className="w-52" />}
         />
         <ChartLegend content={<ChartLegendContent />} />
-        <Pie data={aggregatedData} nameKey="category" dataKey="amount"></Pie>
+        <Pie data={aggregatedData} nameKey="name" dataKey="amount" />
       </PieChart>
     </ChartContainer>
   );

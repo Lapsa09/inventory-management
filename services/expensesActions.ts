@@ -13,16 +13,20 @@ export const getExpenses = async ({
   endDate?: string;
 }) => {
   const expressions: (SQL<unknown> | undefined)[] = [
-    !!startDate && !!endDate
+    !!startDate || !!endDate
       ? and(
-          gte(
-            ExpenseByCategory.date,
-            sql<Date>`to_date(${startDate}, 'yyyy-mm-dd')`
-          ),
-          lte(
-            ExpenseByCategory.date,
-            sql<Date>`to_date(${endDate}, 'yyyy-mm-dd')`
-          )
+          !!startDate
+            ? gte(
+                ExpenseByCategory.date,
+                sql<Date>`to_date(${startDate}, 'yyyy-mm-dd')`
+              )
+            : undefined,
+          !!endDate
+            ? lte(
+                ExpenseByCategory.date,
+                sql<Date>`to_date(${endDate}, 'yyyy-mm-dd')`
+              )
+            : undefined
         )
       : undefined,
     category && category !== "All"

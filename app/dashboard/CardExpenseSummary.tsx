@@ -18,7 +18,8 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { useMediaQuery } from "@uidotdev/usehooks";
+import { useMediaQuery } from "usehooks-ts";
+import dynamic from "next/dynamic";
 
 type Props = {
   expenseSummary: MetricsDTO["expenseSummary"];
@@ -33,7 +34,10 @@ const colors = ["#00C49F", "#0088FE", "#FFBB28"];
 
 function CardExpenseSummary(props: Props) {
   const expenseSummary = props.expenseSummary[0];
-  const matches = useMediaQuery("(min-width: 1280px)");
+  const matches = useMediaQuery("(min-width: 1280px)", {
+    initializeWithValue: false,
+    defaultValue: true,
+  });
   const expenseByCategorySummary = props.expenseByCategorySummary || [];
 
   const expenseSums = expenseByCategorySummary.reduce<ExpenseSums>(

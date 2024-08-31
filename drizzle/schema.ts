@@ -61,7 +61,7 @@ export const PurchaseSummary = pgTable("purchaseSummary", {
   }).primaryKey(),
   totalPurchased: numeric("totalPurchased").notNull(),
   changePercentage: numeric("change_percentage"),
-  date: timestamp("date").notNull(),
+  date: timestamp("date", { mode: "string" }).notNull(),
 });
 
 export const ExpenseSummary = pgTable("expenseSummary", {

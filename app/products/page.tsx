@@ -3,7 +3,9 @@ import Rating from "@/components/Rating";
 import { getProducts } from "@/services/productActions";
 import { SearchParams } from "@/types";
 import SearchBar from "./SearchBar";
-import CreateProductModal from "./CreateProductModal";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { PlusCircleIcon } from "lucide-react";
 
 const Products = async ({ searchParams }: { searchParams: SearchParams }) => {
   const searchTerm = new URLSearchParams(searchParams).get("q") || "";
@@ -17,7 +19,15 @@ const Products = async ({ searchParams }: { searchParams: SearchParams }) => {
       {/* HEADER BAR */}
       <div className="flex justify-between items-center mb-6">
         <Header name="Products" />
-        <CreateProductModal />
+        <Button
+          asChild
+          className="flex items-center bg-blue-500 hover:bg-blue-700 text-gray-200 font-bold py-2 px-4 rounded"
+        >
+          <Link href={"/products/create"}>
+            <PlusCircleIcon className="w-5 h-5 mr-2 !text-gray-200" /> Create
+            Product
+          </Link>
+        </Button>
       </div>
 
       {/* BODY PRODUCTS LIST */}
