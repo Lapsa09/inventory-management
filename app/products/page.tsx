@@ -1,16 +1,19 @@
 import Header from "@/components/Header";
 import Rating from "@/components/Rating";
-import { getProducts } from "@/services/productActions";
 import { SearchParams } from "@/types";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PlusCircleIcon } from "lucide-react";
+import { getter } from "@/services";
+import { ProductDTO } from "@/types/products";
 
 const Products = async ({ searchParams }: { searchParams: SearchParams }) => {
-  const searchTerm = new URLSearchParams(searchParams).get("q") || "";
+  const searchTerm = new URLSearchParams(searchParams).get("q");
 
-  const products = await getProducts(searchTerm);
+  const products = await getter<ProductDTO[]>({
+    route: `/products${searchTerm ? `?q=${searchTerm}` : ""}`,
+  });
 
   return (
     <div className="mx-auto pb-5 w-full">

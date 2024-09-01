@@ -1,5 +1,3 @@
-"use server";
-
 import { db } from "@/drizzle";
 import {
   ExpenseByCategory,
@@ -9,8 +7,9 @@ import {
   SalesSummary,
 } from "@/drizzle/schema";
 import { desc, sql } from "drizzle-orm";
+import { NextResponse } from "next/server";
 
-export async function getMetrics() {
+export async function GET() {
   const popularProducts = await db
     .select()
     .from(Products)
@@ -42,18 +41,19 @@ export async function getMetrics() {
     .limit(5);
   const expenseByCategorySummary = await db
     .select({
-      amount: sql<string>`${ExpenseByCategory.amount}`,
+      amount: ExpenseByCategory.amount,
       expenseSummaryId: ExpenseByCategory.expenseSummaryId,
       category: ExpenseByCategory.category,
       date: ExpenseByCategory.date,
       expenseByCategoryId: ExpenseByCategory.expenseByCategoryId,
     })
     .from(ExpenseByCategory);
-  return {
+
+  return NextResponse.json({
     popularProducts,
     saleSummary,
     purchaseSummary,
     expenseSummary,
     expenseByCategorySummary,
-  };
+  });
 }

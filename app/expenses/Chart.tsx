@@ -9,8 +9,10 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Pie, PieChart } from "recharts";
+import { Pie, PieChart, Sector } from "recharts";
 import { ExpensesByCategory } from "@/types/expenses";
+import { useSearchParams } from "next/navigation";
+import { PieSectorDataItem } from "recharts/types/polar/Pie";
 const colors = {
   Office: "#00C49F",
   Salaries: "#0088FE",
@@ -31,6 +33,8 @@ type Props = {
 };
 
 function Chart({ data }: Props) {
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
   const aggregatedData: AggregatedDataItem[] = Object.values(
     data.reduce((acc: AggregatedData, data, i) => {
       const amount = data.amount;
@@ -44,6 +48,11 @@ function Chart({ data }: Props) {
       acc[data.category].amount += amount;
       return acc;
     }, {})
+  );
+
+  const activeIndex = React.useMemo(
+    () => aggregatedData.findIndex((item) => item.name === category),
+    [category]
   );
 
   const chartConfig = {
@@ -72,7 +81,15 @@ function Chart({ data }: Props) {
           content={<ChartTooltipContent className="w-52" />}
         />
         <ChartLegend content={<ChartLegendContent />} />
-        <Pie data={aggregatedData} nameKey="name" dataKey="amount" />
+        <Pie
+          data={aggregatedData}
+          nameKey="name"
+          dataKey="amount"
+          activeIndex={activeIndex}
+          activeShape={({ outerRadius = 0, ...props }: PieSectorDataItem) => (
+            <Sector {...props} outerRadius={outerRadius + 20} />
+          )}
+        />
       </PieChart>
     </ChartContainer>
   );

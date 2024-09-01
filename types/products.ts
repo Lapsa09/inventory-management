@@ -1,6 +1,6 @@
-import { getProducts } from "@/services/productActions";
+import { Products } from "@/drizzle/schema";
 
-export type ProductDTO = Awaited<ReturnType<typeof getProducts>>[0];
+export type ProductDTO = typeof Products.$inferSelect;
 
 export type ProductFormData = {
   name: string;

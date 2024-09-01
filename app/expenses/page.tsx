@@ -1,32 +1,15 @@
 import Header from "@/components/Header";
-import { getExpenses } from "@/services/expensesActions";
 import Filters from "./Filters";
 import { SearchParams } from "@/types";
-import { z } from "zod";
-
 import Chart from "./Chart";
-
-const filtersSchema = z.object({
-  category: z
-    .enum(["All", "Office", "Professional", "Salaries"])
-    .default("All"),
-  startDate: z.string().date().optional(),
-  endDate: z.string().date().optional(),
-});
+import { getter } from "@/services";
+import { ExpensesByCategory } from "@/types/expenses";
 
 const Expenses = async ({ searchParams }: { searchParams: SearchParams }) => {
-  const {
-    category: selectedCategory,
-    endDate,
-    startDate,
-  } = filtersSchema.parse(
-    Object.fromEntries(new URLSearchParams(searchParams).entries())
-  );
-
-  const expenses = await getExpenses({
-    category: selectedCategory,
-    startDate,
-    endDate,
+  const expenses = await getter<ExpensesByCategory[]>({
+    route: `/expenses${
+      searchParams ? `?${new URLSearchParams(searchParams).toString()}` : ""
+    }`,
   });
   return (
     <div>

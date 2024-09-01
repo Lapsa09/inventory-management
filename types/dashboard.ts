@@ -1,3 +1,15 @@
-import { getMetrics } from "@/services/dashboardActions";
+import {
+  Products,
+  SalesSummary,
+  PurchaseSummary,
+  ExpenseSummary,
+  ExpenseByCategory,
+} from "@/drizzle/schema";
 
-export type MetricsDTO = Awaited<ReturnType<typeof getMetrics>>;
+export type MetricsDTO = {
+  popularProducts: (typeof Products.$inferSelect)[];
+  saleSummary: (typeof SalesSummary.$inferSelect)[];
+  purchaseSummary: (typeof PurchaseSummary.$inferSelect)[];
+  expenseSummary: (typeof ExpenseSummary.$inferSelect)[];
+  expenseByCategorySummary: (typeof ExpenseByCategory.$inferSelect)[];
+};

@@ -3,16 +3,6 @@
 import { db } from "@/drizzle";
 import { Products } from "@/drizzle/schema";
 
-export const getProducts = async (search: string) => {
-  const products = await db.query.Products.findMany({
-    where: search
-      ? (product, { ilike }) => ilike(product.name, `%${search}%`)
-      : undefined,
-  });
-
-  return products;
-};
-
 export const createProduct = async (body: {
   productId: string;
   name: string;

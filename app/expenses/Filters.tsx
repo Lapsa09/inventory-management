@@ -33,7 +33,8 @@ function Filters() {
 
   const onColumnSelectFiltersChange = (name: string, value: string) => {
     const newSearchParams = new URLSearchParams(queryParams);
-    newSearchParams.set(name, value);
+    if (value === "All") newSearchParams.delete(name);
+    else newSearchParams.set(name, value);
     router.replace(`?${newSearchParams.toString()}`);
   };
 

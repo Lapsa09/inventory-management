@@ -11,10 +11,13 @@ import {
   TrendingDown,
   TrendingUp,
 } from "lucide-react";
-import { getMetrics } from "@/services/dashboardActions";
+import { getter } from "@/services";
+import { MetricsDTO } from "@/types/dashboard";
 
 async function page() {
-  const dashboardMetrics = await getMetrics();
+  const dashboardMetrics = await getter<MetricsDTO>({
+    route: "/dashboard",
+  });
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 xl:overflow-auto gap-10 pb-4 custom-grid-rows">

@@ -1,3 +1,3 @@
-import { getUsers } from "@/services/usersActions";
+import { Users } from "@/drizzle/schema";
 
-export type UsersDTO = Awaited<ReturnType<typeof getUsers>>[0];
+export type UsersDTO = typeof Users.$inferSelect;

@@ -50,7 +50,7 @@ export const Expenses = pgTable("expenses", {
 
 export const SalesSummary = pgTable("salesSummary", {
   salesSummaryId: varchar("sales_summary_id", { length: 255 }).primaryKey(),
-  totalValue: numeric("total_value").notNull(),
+  totalValue: numeric("total_value").notNull().$type<Number>(),
   changePercentage: numeric("change_percentage"),
   date: timestamp("date", { mode: "string" }).notNull(),
 });

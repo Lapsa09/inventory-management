@@ -1,3 +1,3 @@
-import { getExpenses } from "@/services/expensesActions";
+import { ExpenseByCategory } from "@/drizzle/schema";
 
-export type ExpensesByCategory = Awaited<ReturnType<typeof getExpenses>>[0];
+export type ExpensesByCategory = typeof ExpenseByCategory.$inferSelect;
