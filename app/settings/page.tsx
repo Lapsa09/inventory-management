@@ -16,7 +16,7 @@ const page = () => {
   return (
     <div className="w-full">
       <Header name="User Settings" />
-      <div className="overflow-x-auto mt-5 border rounded-xl border-gray-200">
+      <div className="overflow-x-auto mt-5 border rounded-xl">
         <Table>
           <TableHeader>
             <TableRow>

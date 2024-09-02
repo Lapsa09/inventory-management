@@ -57,7 +57,7 @@ function CardSalesSummary({ salesData }: Props) {
   } satisfies ChartConfig;
 
   return (
-    <Card className="row-span-3 xl:row-span-6 bg-white shadow-md rounded-2xl flex flex-col justify-between">
+    <Card className="row-span-3 xl:row-span-6  shadow-md rounded-2xl flex flex-col justify-between">
       <CardHeader>
         <h2 className="text-lg font-semibold mb-2 px-7">Sales Summary</h2>
         <hr />

@@ -49,7 +49,7 @@ const CreateProductModal = () => {
 
   return (
     <Dialog open onOpenChange={router.back}>
-      <DialogContent className="text-gray-700">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>
             <Header name="Create New Product" />

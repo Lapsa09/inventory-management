@@ -20,7 +20,7 @@ function Sidebar() {
 
   const sidebarClassNames = `fixed flex flex-col ${
     !open ? "w-0 md:w-16" : "w-72 md:w-64"
-  } bg-white transition-all duration-300 overflow-hidden h-full shadow-md z-50`;
+  } transition-all duration-300 overflow-hidden h-full shadow-md z-50`;
   return (
     <div className={sidebarClassNames}>
       <div className="flex gap-3 justify-between md:justify-normal items-center pt-8">
@@ -34,7 +34,7 @@ function Sidebar() {
           variant="outline"
           onClick={toggleSidebar}
           size="icon"
-          className="md:hidden px-3 py-3 bg-gray-100 rounded-full hover:bg-blue-100"
+          className="md:hidden px-3 py-3 rounded-full"
         >
           <Menu className="w-4 h-4" />
         </Button>
@@ -73,9 +73,7 @@ function Sidebar() {
         />
       </div>
       <div className={`${!open ? "hidden" : "block"} mb-10`}>
-        <p className="text-center text-xs text-gray-500">
-          &copy; 2024 Lapstock
-        </p>
+        <p className="text-center text-xs">&copy; 2024 Lapstock</p>
       </div>
     </div>
   );

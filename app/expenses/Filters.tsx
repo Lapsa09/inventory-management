@@ -47,7 +47,7 @@ function Filters() {
   };
 
   return (
-    <div className="w-full md:w-1/3 bg-white shadow rounded-lg p-6">
+    <div className="w-full md:w-1/3 shadow dark:shadow-slate-200/10 rounded-lg p-6">
       <h3 className="text-lg font-semibold mb-4">
         Filter by Category and Date
       </h3>

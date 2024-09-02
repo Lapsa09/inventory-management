@@ -10,8 +10,8 @@ function PopularProducts({
   popularProducts: MetricsDTO["popularProducts"];
 }) {
   return (
-    <Card className="row-span-3 xl:row-span-6 bg-white shadow-md rounded-2xl overflow-auto relative">
-      <CardHeader className="sticky top-0 bg-white pb-0">
+    <Card className="row-span-3 xl:row-span-6 shadow-md rounded-2xl overflow-auto relative">
+      <CardHeader className="sticky top-0 pb-0">
         <CardTitle className="text-lg font-semibold px-7 pb-2">
           Popular Products
         </CardTitle>
@@ -26,10 +26,10 @@ function PopularProducts({
             <div className="flex items-center gap-3">
               <div>img</div>
               <div className="flex flex-col justify-between gap-1">
-                <div className="font-bold text-gray-700">{product.name}</div>
+                <div className="font-bold">{product.name}</div>
                 <div className="flex text-sm items-center">
                   <span className="font-bold text-blue-500 text-xs">
-                    {product.price}
+                    $ {product.price}
                   </span>
                   <span className="mx-2">|</span>
                   <Rating rating={product.rating ? +product.rating : 0} />

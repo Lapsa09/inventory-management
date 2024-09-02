@@ -24,10 +24,10 @@ const Products = async ({ searchParams }: { searchParams: SearchParams }) => {
         <Header name="Products" />
         <Button
           asChild
-          className="flex items-center bg-blue-500 hover:bg-blue-700 text-gray-200 font-bold py-2 px-4 rounded"
+          className="flex items-center text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded"
         >
           <Link href={"/products/create"}>
-            <PlusCircleIcon className="w-5 h-5 mr-2 !text-gray-200" /> Create
+            <PlusCircleIcon className="w-5 h-5 mr-2 text-white" /> Create
             Product
           </Link>
         </Button>
@@ -51,19 +51,15 @@ const Products = async ({ searchParams }: { searchParams: SearchParams }) => {
                 className="mb-3 rounded-2xl w-36 h-36"
               /> */}
               <div>Img</div>
-              <h3 className="text-lg text-gray-900 font-semibold">
-                {product.name}
-              </h3>
-              <p className="text-gray-800">
+              <h3 className="text-lg font-semibold">{product.name}</h3>
+              <p>
                 {Intl.NumberFormat("en-US", {
                   style: "currency",
                   currency: "USD",
                   maximumFractionDigits: 2,
                 }).format(+product.price)}
               </p>
-              <div className="text-sm text-gray-600 mt-1">
-                Stock: {product.stockQuantity}
-              </div>
+              <div className="text-sm mt-1">Stock: {product.stockQuantity}</div>
               {product.rating && (
                 <div className="flex items-center mt-2">
                   <Rating rating={+product.rating} />

@@ -16,7 +16,7 @@ const Expenses = async ({ searchParams }: { searchParams: SearchParams }) => {
       {/* HEADER */}
       <div className="mb-5">
         <Header name="Expenses" />
-        <p className="text-sm text-gray-500">
+        <p className="text-sm">
           A visual representation of expenses over time.
         </p>
       </div>
@@ -25,7 +25,7 @@ const Expenses = async ({ searchParams }: { searchParams: SearchParams }) => {
       <div className="flex flex-col md:flex-row justify-between gap-4">
         <Filters />
         {/* PIE CHART */}
-        <div className="flex-grow bg-white shadow rounded-lg p-4 md:p-6">
+        <div className="flex-grow shadow dark:shadow-slate-200/10 rounded-lg p-4 md:p-6">
           <Chart data={expenses} />
         </div>
       </div>

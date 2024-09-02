@@ -19,7 +19,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { useMediaQuery } from "usehooks-ts";
-import dynamic from "next/dynamic";
 
 type Props = {
   expenseSummary: MetricsDTO["expenseSummary"];
@@ -43,7 +42,7 @@ function CardExpenseSummary(props: Props) {
   const expenseSums = expenseByCategorySummary.reduce<ExpenseSums>(
     (acc, item) => {
       const category = item.category + " Expenses";
-      const amount = parseInt(item.amount, 10);
+      const amount = item.amount;
       if (!acc[category]) acc[category] = 0;
       acc[category] += amount;
       return acc;
@@ -76,7 +75,7 @@ function CardExpenseSummary(props: Props) {
   );
 
   return (
-    <Card className="row-span-3 bg-white shadow-md rounded-2xl flex flex-col justify-between">
+    <Card className="row-span-3 shadow-md rounded-2xl flex flex-col justify-between">
       <CardHeader className="pb-0">
         <h2 className="text-lg font-semibold mb-2 px-7">Expense Summary</h2>
         <hr />

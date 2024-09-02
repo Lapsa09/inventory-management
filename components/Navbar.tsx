@@ -5,13 +5,16 @@ import React from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { useThemeStore } from "@/stores/theme/provider";
 import { useSidebarStore } from "@/stores/sidebar/provider";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 
 function Navbar() {
-  const { theme, toggleTheme } = useThemeStore((state) => state);
+  const { setTheme, theme } = useTheme();
   const { toggleSidebar, open } = useSidebarStore((state) => state);
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
   return (
     <div className="flex justify-between items-center w-full mb-7">
       <div
@@ -24,7 +27,7 @@ function Navbar() {
           variant={"outline"}
           size={"icon"}
           onClick={toggleSidebar}
-          className="px-3 py-3 bg-gray-100 rounded-full hover:bg-blue-100"
+          className="px-3 py-3 rounded-full"
         >
           <Menu className="w-4 h-4" />
         </Button>
@@ -32,7 +35,7 @@ function Navbar() {
           <Input
             type="search"
             placeholder="Start type to search groups & products"
-            className="pl-10 pr-4 py-2 w-50 md:w-80 border-2 border-gray-300 bg-white rounded-lg focus-visible:outline-none focus-visible:border-blue-500 focus-visible:ring-0"
+            className="pl-10 pr-4 py-2 w-50 md:w-80 border-2 rounded-lg focus-visible:outline-none focus-visible:border-blue-500 focus-visible:ring-0"
           />
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <Bell className="text-gray-500" size={20} />

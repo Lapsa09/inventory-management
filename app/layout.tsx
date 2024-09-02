@@ -20,7 +20,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <StoreProvider>
-          <DashboardWrapper>{children}</DashboardWrapper>
+          <DashboardWrapper
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </DashboardWrapper>
         </StoreProvider>
       </body>
     </html>

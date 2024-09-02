@@ -17,10 +17,10 @@ function SearchBar() {
 
   return (
     <div className="mb-6">
-      <div className="flex items-center border-2 border-gray-200 rounded">
-        <SearchIcon className="w-5 h-5 text-gray-500 m-2" />
+      <div className="flex items-center border-2 rounded">
+        <SearchIcon className="w-5 h-5  m-2" />
         <Input
-          className="w-full py-2 px-4 rounded bg-white"
+          className="w-full py-2 px-4 rounded border-none"
           placeholder="Search products..."
           onChange={onColumnFiltersChange}
         />
